@@ -26,12 +26,14 @@ public class Config {
 
   @Bean
   public void persistAcquirers() {
+    acquirerRepository.deleteAll();
     acquirerRepository.saveAndFlush(new Acquirer(AcquirerName.CIELO, "01027058000191"));
     acquirerRepository.saveAndFlush(new Acquirer(AcquirerName.REDE, " 01425787000104"));
   }
 
   @Bean
   public void persistEstablishment() {
+    establishmentRepository.deleteAll();
     establishmentRepository.saveAndFlush(new Establishment("Panificadora do Murilo Alves",
         Long.parseLong("12345678"), acquirerRepository.findByAcquirerName(AcquirerName.CIELO).get(),
         Double.parseDouble("0.01")));
