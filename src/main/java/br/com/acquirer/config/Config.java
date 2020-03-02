@@ -27,20 +27,30 @@ public class Config {
   @Bean
   public void persistAcquirers() {
     acquirerRepository.deleteAll();
-    acquirerRepository.saveAndFlush(new Acquirer(AcquirerName.CIELO, "01027058000191"));
-    acquirerRepository.saveAndFlush(new Acquirer(AcquirerName.REDE, " 01425787000104"));
+
+    if (!acquirerRepository.findByAcquirerName(AcquirerName.CIELO).isPresent()
+        && !acquirerRepository.findByAcquirerName(AcquirerName.REDE).isPresent()) {
+      acquirerRepository.saveAndFlush(new Acquirer(AcquirerName.CIELO, "01027058000191"));
+      acquirerRepository.saveAndFlush(new Acquirer(AcquirerName.REDE, " 01425787000104"));
+    }
   }
 
   @Bean
   public void persistEstablishment() {
     establishmentRepository.deleteAll();
-    establishmentRepository.saveAndFlush(new Establishment("Panificadora do Murilo Alves",
-        Long.parseLong("12345678"), acquirerRepository.findByAcquirerName(AcquirerName.CIELO).get(),
-        Double.parseDouble("0.01")));
 
-    establishmentRepository.saveAndFlush(new Establishment("Açougue do Murilo Alves",
-        Long.parseLong("12345679"), acquirerRepository.findByAcquirerName(AcquirerName.REDE).get(),
-        Double.parseDouble("0.01")));
+    if (!establishmentRepository.findByMerchantCode(Long.parseLong("12345678")).isPresent()
+        && !establishmentRepository.findByMerchantCode(Long.parseLong("12345679")).isPresent()) {
+      establishmentRepository.saveAndFlush(
+          new Establishment("Panificadora do Murilo Alves", Long.parseLong("12345678"),
+              acquirerRepository.findByAcquirerName(AcquirerName.CIELO).get(),
+              Double.parseDouble("0.01")));
+
+      establishmentRepository
+          .saveAndFlush(new Establishment("Açougue do Murilo Alves", Long.parseLong("12345679"),
+              acquirerRepository.findByAcquirerName(AcquirerName.REDE).get(),
+              Double.parseDouble("0.01")));
+    }
   }
 
 }
