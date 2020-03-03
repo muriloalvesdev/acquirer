@@ -101,8 +101,10 @@ public class AcquirerServiceImpl implements AcquirerService {
   }
 
   private void persistSale(SummarySaleResource summarySale) {
+    LOG.info("Persist sale [ " + summarySale + "] ");
     Sale sale = SaleConvert.convert(summarySale);
-    saleRepository.save(sale);
+    LOG.info("SALE [ " + sale + "] ");
+    saleRepository.saveAndFlush(sale);
   }
 
   private void checkEstablishmentExist(String merchantCode,

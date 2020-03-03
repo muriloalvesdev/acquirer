@@ -16,7 +16,7 @@ import javax.persistence.UniqueConstraint;
 public class Sale {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID uuid;
 
   @Column(name = "net_amount")
@@ -76,6 +76,13 @@ public class Sale {
 
   public UUID getUuid() {
     return uuid;
+  }
+
+  @Override
+  public String toString() {
+    return "Sale [uuid=" + uuid + ", netAmount=" + netAmount + ", grossAmount=" + grossAmount
+        + ", merchantDiscountRate=" + merchantDiscountRate + ", numberSummarySale="
+        + numberSummarySale + "]";
   }
 
 }
