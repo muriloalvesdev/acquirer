@@ -7,13 +7,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import br.com.acquirer.convert.AcquirerConvertDTO;
-import br.com.acquirer.convert.SaleConvert;
 import br.com.acquirer.domain.model.Acquirer;
 import br.com.acquirer.domain.model.Establishment;
-import br.com.acquirer.domain.model.Sale;
 import br.com.acquirer.domain.repository.AcquirerRepository;
 import br.com.acquirer.domain.repository.EstablishmentRepository;
-import br.com.acquirer.domain.repository.SaleRepository;
 import br.com.acquirer.resources.AcquirerDataTransferObject;
 import br.com.acquirer.resources.InfoTransactionResource;
 import br.com.acquirer.resources.RequestResource;
@@ -30,9 +27,6 @@ public class AcquirerServiceImpl implements AcquirerService {
 
   @Autowired
   private EstablishmentRepository establishmentRepository;
-
-  @Autowired
-  private SaleRepository saleRepository;
 
   @Autowired
   private AcquirerCompoment component;
@@ -83,8 +77,6 @@ public class AcquirerServiceImpl implements AcquirerService {
       LOG.info("Transaction receive [ " + transactionRequest + " ]");
       component.sendRequest(restTemplate, transactionRequest, uriTransaction);
 
-      persistSale(request.getTransaction().getSummarySale());
-
     } catch (EstablishmentNotFoundException e) {
       LOG.error(
           "Error sending request to modules or establishment not exist, error:  " + e.getMessage());
@@ -98,13 +90,6 @@ public class AcquirerServiceImpl implements AcquirerService {
         request.getCountInstallments(), request.getMaskedCreditCardNumber(),
         request.getCapturedAt(), request.getPaymentDate(), summarySaleResource,
         request.getHolder().getName());
-  }
-
-  private void persistSale(SummarySaleResource summarySale) {
-    LOG.info("Persist sale [ " + summarySale + "] ");
-    Sale sale = SaleConvert.convert(summarySale);
-    LOG.info("SALE [ " + sale + "] ");
-    saleRepository.saveAndFlush(sale);
   }
 
   private void checkEstablishmentExist(String merchantCode,
