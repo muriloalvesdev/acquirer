@@ -26,8 +26,6 @@ public class Config {
 
   @Bean
   public void persistAcquirers() {
-    acquirerRepository.deleteAll();
-
     if (!acquirerRepository.findByAcquirerName(AcquirerName.CIELO).isPresent()
         && !acquirerRepository.findByAcquirerName(AcquirerName.REDE).isPresent()) {
       acquirerRepository.saveAndFlush(new Acquirer(AcquirerName.CIELO, "01027058000191"));
@@ -37,8 +35,6 @@ public class Config {
 
   @Bean
   public void persistEstablishment() {
-    establishmentRepository.deleteAll();
-
     if (!establishmentRepository.findByMerchantCode(Long.parseLong("12345678")).isPresent()
         && !establishmentRepository.findByMerchantCode(Long.parseLong("12345679")).isPresent()) {
       establishmentRepository.saveAndFlush(
