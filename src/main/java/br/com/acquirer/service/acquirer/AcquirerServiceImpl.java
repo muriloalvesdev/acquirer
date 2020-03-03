@@ -69,12 +69,7 @@ public class AcquirerServiceImpl implements AcquirerService {
     try {
       checkEstablishmentExist(request.getMerchantCode(), establishmentOptional);
 
-      LOG.info("URI HOLDER[" + uriHolder + " ]");
-      LOG.info("Holder receive [ " + request.getHolder() + " ]");
       component.sendRequest(restTemplate, request.getHolder(), uriHolder);
-
-      LOG.info("URI TRANSACTION[" + uriTransaction + " ]");
-      LOG.info("Transaction receive [ " + transactionRequest + " ]");
       component.sendRequest(restTemplate, transactionRequest, uriTransaction);
 
     } catch (EstablishmentNotFoundException e) {
