@@ -10,12 +10,12 @@ public class CardsDataTransferObject {
   @NotNull
   private String securityCode;
 
-  @JsonProperty("card_holder")
+  @JsonProperty("card_number")
   @NotNull
   private String cardNumber;
 
   @JsonProperty("validate")
-  @JsonFormat(pattern = "dd-MM-yyyy")
+  @JsonFormat(pattern = "yyyy-MM-dd")
   @NotNull
   private String validate;
 
@@ -41,6 +41,12 @@ public class CardsDataTransferObject {
 
   public void setValidate(String validate) {
     this.validate = validate;
+  }
+
+  @Override
+  public String toString() {
+    return "CardsDataTransferObject [securityCode=" + securityCode + ", cardNumber=" + cardNumber
+        + ", validate=" + validate + "]";
   }
 
 }
