@@ -4,6 +4,7 @@ import java.util.Optional;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import br.com.acquirer.convert.AcquirerConvertDTO;
@@ -17,6 +18,7 @@ import br.com.acquirer.resources.RequestResource;
 import br.com.acquirer.resources.SummarySaleResource;
 import br.com.acquirer.resources.http.request.TransactionRequest;
 import br.com.acquirer.service.exception.EstablishmentNotFoundException;
+import br.com.acquirer.service.exception.RequestErrorException;
 
 @Service
 public class AcquirerServiceImpl implements AcquirerService {
@@ -69,10 +71,16 @@ public class AcquirerServiceImpl implements AcquirerService {
     try {
       checkEstablishmentExist(request.getMerchantCode(), establishmentOptional);
 
-      component.sendRequest(restTemplate, request.getHolder(), uriHolder);
-      component.sendRequest(restTemplate, transactionRequest, uriTransaction);
+      HttpStatus statusCode =
+          component.sendRequest(restTemplate, request.getHolder(), uriHolder).getStatusCode();
+      if (statusCode == HttpStatus.OK) {
+        component.sendRequest(restTemplate, transactionRequest, uriTransaction);
+      } else {
+        throw new RequestErrorException(
+            "request to holder module failed, status: " + statusCode.value());
+      }
 
-    } catch (EstablishmentNotFoundException e) {
+    } catch (Exception e) {
       LOG.error(
           "Error sending request to modules or establishment not exist, error:  " + e.getMessage());
     }
