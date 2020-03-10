@@ -2,7 +2,6 @@ package br.com.acquirer.service.acquirer;
 
 import java.util.Optional;
 import org.jboss.logging.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -24,16 +23,9 @@ import br.com.acquirer.service.exception.RequestErrorException;
 public class AcquirerServiceImpl implements AcquirerService {
   private static final Logger LOG = Logger.getLogger(AcquirerServiceImpl.class);
 
-  @Autowired
   private AcquirerRepository acquirerRepository;
-
-  @Autowired
   private EstablishmentRepository establishmentRepository;
-
-  @Autowired
   private AcquirerCompoment component;
-
-  @Autowired
   private RestTemplate restTemplate;
 
   @Value("${uri.holder}")
@@ -41,6 +33,15 @@ public class AcquirerServiceImpl implements AcquirerService {
 
   @Value("${uri.transaction}")
   private String uriTransaction;
+
+  public AcquirerServiceImpl(AcquirerRepository acquirerRepository,
+      EstablishmentRepository establishmentRepository, AcquirerCompoment component,
+      RestTemplate restTemplate) {
+    this.acquirerRepository = acquirerRepository;
+    this.establishmentRepository = establishmentRepository;
+    this.component = component;
+    this.restTemplate = restTemplate;
+  }
 
   @Override
   public void save(AcquirerDataTransferObject acquirerDTO) {
