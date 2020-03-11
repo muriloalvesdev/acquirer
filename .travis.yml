@@ -1,3 +1,5 @@
+dist: trusty
+
 language: java
 
 jdk:
@@ -13,7 +15,8 @@ install: true
 
 before_install:
   - chmod +x travis.sh
-  - psql -c 'create database "holder";' -U postgres
+  - cp settings.xml $HOME/.m2
+  - psql -c 'create database "acquirer";' -U postgres
 
 script:
   - chmod +x ./.ci/script.sh 
