@@ -14,12 +14,12 @@ addons:
 install: true
 
 before_install:
-  - chmod +x travis.sh
+  - chmod=+x travis.sh
   - cp settings.xml $HOME/.m2
   - psql -c 'create database "acquirer";' -U postgres
 
 script:
-  - chmod +x ./.ci/script.sh 
+  - chmod=+x ./.ci/script.sh 
   - ./.ci/script.sh
   - mvn clean install
 
