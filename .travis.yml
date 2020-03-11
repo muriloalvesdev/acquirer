@@ -17,6 +17,4 @@ before_install:
   - psql -c 'create database "acquirer";' -U postgres
 
 script:
-  - chmod +x ./.ci/script.sh 
-  - ./.ci/script.sh
   - mvn clean install
