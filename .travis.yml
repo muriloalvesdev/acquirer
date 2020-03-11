@@ -1,7 +1,7 @@
 language: java
 
 jdk:
-	- oraclejdk8
+  - oraclejdk8
 
 services:
   - postgresql
@@ -9,11 +9,17 @@ services:
 addons:
   postgresql: "9.5"
 
+install: true
+
 before_install:
   - chmod +x travis.sh
-  - psql -c 'create database "acquirer";' -U postgres
+  - psql -c 'create database "holder";' -U postgres
 
 script:
   - chmod +x ./.ci/script.sh 
   - ./.ci/script.sh
   - mvn clean install
+
+cache:
+  directories:
+  - $HOME/.m2
