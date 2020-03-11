@@ -22,7 +22,7 @@ public class AcquirerController {
     return ResponseEntity.ok(acquirerService.findByCnpj(cnpj));
   }
 
-  @GetMapping("/scheduling")
+  @GetMapping("/")
   public ResponseEntity<String> scheduling() {
     return ResponseEntity.ok("OK");
   }
