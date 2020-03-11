@@ -11,7 +11,7 @@ addons:
 
 before_install:
   - chmod +x travis.sh
-  - psql -c 'create database "holder";' -U postgres
+  - psql -c 'create database "acquirer";' -U postgres
 
 script:
   - chmod +x ./.ci/script.sh 
