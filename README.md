@@ -3,8 +3,8 @@
 ## APIs
 ![Abaixo está a representação da documentação das APIs com o SWAGGER](https://github.com/muriloalvesdev/acquirer/blob/master/src/main/resources/swagger/swagger-documentation.png)
 
-### API findByCnpj detalhada, responsável por buscar um acquirente através do CNPJ informado:
+### Descrição da API findByCnpj
 ![findByCnpj](https://github.com/muriloalvesdev/acquirer/blob/master/src/main/resources/swagger/swagger-find-by-cnpj.png)
 
-### API saleController detalhada, responsável por iniciar o processo de criação de uma venda:
+### Descrição da API saleController
 ![saleController](https://github.com/muriloalvesdev/acquirer/blob/master/src/main/resources/swagger/swagger-sale-controller.png)
