@@ -23,7 +23,7 @@ public class AcquirerController {
   }
 
   @GetMapping("/")
-  public ResponseEntity<String> scheduling() {
+  public ResponseEntity<String> ok() {
     return ResponseEntity.ok("OK");
   }
 }
