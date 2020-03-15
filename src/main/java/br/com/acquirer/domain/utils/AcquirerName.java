@@ -1,8 +1,7 @@
 package br.com.acquirer.domain.utils;
 
+import java.security.InvalidParameterException;
 import java.util.Arrays;
-
-import br.com.acquirer.service.exception.AcquirerNameNotFoundException;
 
 public enum AcquirerName {
   CIELO("CIELO"), REDE("REDE");
@@ -18,10 +17,10 @@ public enum AcquirerName {
   }
 
   public static AcquirerName getAndValidateAcquirerName(String acquirerName)
-      throws AcquirerNameNotFoundException {
+      throws InvalidParameterException {
     return Arrays.asList(AcquirerName.values()).stream()
         .filter(acquirer -> acquirer.getAcquirerName().equals(acquirerName.toUpperCase()))
-        .findFirst().orElseThrow(() -> new AcquirerNameNotFoundException(
+        .findFirst().orElseThrow(() -> new InvalidParameterException(
             "Acquirer informed [ " + acquirerName + " ]" + "not found!"));
   }
 }

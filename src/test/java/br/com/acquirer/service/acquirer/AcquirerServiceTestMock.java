@@ -19,9 +19,9 @@ public class AcquirerServiceTestMock {
                 RequestResource.class);
         AcquirerService service = mock(AcquirerService.class);
 
-        BDDMockito.doNothing().when(service).sendRequestToModules(request);
-        service.sendRequestToModules(request);
-        BDDMockito.verify(service).sendRequestToModules(request);
+        BDDMockito.doNothing().when(service).createSale(request);
+        service.createSale(request);
+        BDDMockito.verify(service).createSale(request);
     }
 
 }
