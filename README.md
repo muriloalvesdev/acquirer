@@ -1,7 +1,7 @@
 ### Este projeto está hospedado no Heroku, caso queira consumir as APIs, a URL base é [ https://module-acquirer.herokuapp.com ]
 
 ## Utilizei o Swagger para gerar a documentação das APIs deste projeto.
-###### URL da documentação deste projeto: https://module-acquirer.herokuapp.com/swagger-ui.html#/
+###### URL da documentação das APIs deste projeto: https://module-acquirer.herokuapp.com/swagger-ui.html#/
 
 ### Visão Geral das APIs
 ![Abaixo está a representação da documentação das APIs com o SWAGGER](https://github.com/muriloalvesdev/acquirer/blob/master/src/main/resources/swagger/swagger-documentation.png)
