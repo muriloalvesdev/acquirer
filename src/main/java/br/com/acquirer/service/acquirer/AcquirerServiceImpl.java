@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 import br.com.acquirer.convert.AcquirerConvertDTO;
 import br.com.acquirer.domain.model.Acquirer;
 import br.com.acquirer.domain.model.Establishment;
@@ -18,7 +19,6 @@ import br.com.acquirer.resources.RequestResource;
 import br.com.acquirer.resources.SummarySaleResource;
 import br.com.acquirer.resources.http.request.TransactionRequest;
 import br.com.acquirer.service.establishment.EstablishmentService;
-import br.com.acquirer.service.exception.RequestErrorException;
 
 @Service
 public class AcquirerServiceImpl implements AcquirerService {
@@ -100,8 +100,8 @@ public class AcquirerServiceImpl implements AcquirerService {
     if (statusCode == HttpStatus.OK) {
       component.sendRequest(restTemplate, transactionRequest, uriTransaction);
     } else {
-      throw new RequestErrorException(
-          "request to module Holder failed, http status: " + statusCode.value());
+      throw new ResponseStatusException(statusCode,
+          "request to module Holder failed, http status: ");
     }
   }
 
