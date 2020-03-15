@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import br.com.acquirer.domain.model.RequestExceptionError;
 
@@ -20,16 +21,24 @@ public class HandlerException extends ResponseEntityExceptionHandler {
       InvalidParameterException ex) {
 
     RequestExceptionError exceptionError =
-        new RequestExceptionError("Acquirer informed not found!", HttpStatus.NOT_FOUND.value());
+        new RequestExceptionError(ex.getMessage(), HttpStatus.NOT_FOUND.value());
 
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exceptionError);
+  }
+
+  @ExceptionHandler(ResponseStatusException.class)
+  public @ResponseBody ResponseEntity<RequestExceptionError> handleResponseStatusException(
+      ResponseStatusException ex) {
+    RequestExceptionError exceptionError =
+        new RequestExceptionError(ex.getMessage(), ex.getStatus().value());
+    return ResponseEntity.status(ex.getStatus()).body(exceptionError);
   }
 
   @Override
   protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
       HttpHeaders headers, HttpStatus status, WebRequest request) {
 
-    String defaultMessage = "Invalid fields(s)";
+    String defaultMessage = "Invalid field(s)";
 
     RequestExceptionError error =
         new RequestExceptionError(defaultMessage, HttpStatus.BAD_REQUEST.value());

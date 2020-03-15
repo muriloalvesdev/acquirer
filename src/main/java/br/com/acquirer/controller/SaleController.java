@@ -19,7 +19,7 @@ public class SaleController {
 
   @PostMapping("create")
   public ResponseEntity<Void> requestHolder(@Validated @RequestBody RequestResource request) {
-    acquirerService.sendRequestToModules(request);
+    acquirerService.createSale(request);
     return ResponseEntity.ok().build();
   }
 
