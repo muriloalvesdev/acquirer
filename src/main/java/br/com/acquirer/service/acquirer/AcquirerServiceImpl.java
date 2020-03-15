@@ -1,5 +1,6 @@
 package br.com.acquirer.service.acquirer;
 
+import java.security.InvalidParameterException;
 import java.util.Optional;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +18,6 @@ import br.com.acquirer.resources.RequestResource;
 import br.com.acquirer.resources.SummarySaleResource;
 import br.com.acquirer.resources.http.request.TransactionRequest;
 import br.com.acquirer.service.establishment.EstablishmentService;
-import br.com.acquirer.service.exception.AcquirerUnauthorizedException;
 import br.com.acquirer.service.exception.RequestErrorException;
 
 @Service
@@ -49,26 +49,26 @@ public class AcquirerServiceImpl implements AcquirerService {
   @Override
   public void save(AcquirerDataTransferObject acquirerDTO) {
     Acquirer acquirer = AcquirerConvertDTO.convert(acquirerDTO);
-    acquirerRepository.save(acquirer);
+    acquirerRepository.saveAndFlush(acquirer);
   }
 
   @Override
   public AcquirerDataTransferObject findByCnpj(String cnpj) {
     Optional<Acquirer> optionalAcquirer = acquirerRepository.findByCnpj(cnpj);
+    AcquirerDataTransferObject acquirerDataTransferObject = null;
 
-    try {
-      checkAcquirerPermission(cnpj, optionalAcquirer);
-    } catch (AcquirerUnauthorizedException e) {
-      LOG.error(e.getMessage(), e);
-    }
+    checkAcquirerInformedExist(cnpj, optionalAcquirer);
     Acquirer acquirer = optionalAcquirer.get();
-    return new AcquirerDataTransferObject(acquirer.getAcquirerName().name(), acquirer.getCnpj());
+
+    acquirerDataTransferObject =
+        new AcquirerDataTransferObject(acquirer.getAcquirerName().name(), acquirer.getCnpj());
+
+    return acquirerDataTransferObject;
   }
 
-  private void checkAcquirerPermission(String cnpj, Optional<Acquirer> optionalAcquirer)
-      throws AcquirerUnauthorizedException {
+  private void checkAcquirerInformedExist(String cnpj, Optional<Acquirer> optionalAcquirer) {
     if (!optionalAcquirer.isPresent()) {
-      throw new AcquirerUnauthorizedException("CNPJ informed [" + cnpj + "] UNAUTHORIZED!");
+      throw new InvalidParameterException("CNPJ informed [" + cnpj + "] NOT FOUND!");
     }
   }
 
@@ -81,11 +81,14 @@ public class AcquirerServiceImpl implements AcquirerService {
     Optional<Establishment> establishmentOptional =
         establishmentRepository.findByMerchantCode(Long.parseLong(request.getMerchantCode()));
     try {
+
       establishmentService.checkEstablishmentExist(request.getMerchantCode(),
           establishmentOptional);
 
-      HttpStatus statusCode = sendRequestToHolder(request);
-      sendRequestToTransactions(transactionRequest, statusCode);
+      HttpStatus statusResponseHolder = sendRequestToHolder(request);
+
+      sendRequestToTransactions(transactionRequest, statusResponseHolder);
+
     } catch (Exception e) {
       LOG.error(
           "Error sending request to modules or establishment not exist, error:  " + e.getMessage());
@@ -98,14 +101,12 @@ public class AcquirerServiceImpl implements AcquirerService {
       component.sendRequest(restTemplate, transactionRequest, uriTransaction);
     } else {
       throw new RequestErrorException(
-          "request to holder module failed, status: " + statusCode.value());
+          "request to module Holder failed, http status: " + statusCode.value());
     }
   }
 
   private HttpStatus sendRequestToHolder(RequestResource request) {
-    HttpStatus statusCode =
-        component.sendRequest(restTemplate, request.getHolder(), uriHolder).getStatusCode();
-    return statusCode;
+    return component.sendRequest(restTemplate, request.getHolder(), uriHolder).getStatusCode();
   }
 
   private TransactionRequest createTransactionRequest(InfoTransactionResource transactionResource,
