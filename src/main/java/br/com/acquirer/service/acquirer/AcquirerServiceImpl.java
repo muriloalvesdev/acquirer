@@ -36,7 +36,6 @@ public class AcquirerServiceImpl implements AcquirerService {
   @Value("${uri.transaction}")
   private String uriTransaction;
 
-
   public AcquirerServiceImpl(AcquirerRepository acquirerRepository,
       EstablishmentRepository establishmentRepository, AcquirerCompoment component,
       RestTemplate restTemplate, EstablishmentService establishmentService) {
