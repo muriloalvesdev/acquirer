@@ -1,5 +1,6 @@
 package br.com.acquirer.service.establishment;
 
+import java.security.InvalidParameterException;
 import java.util.Optional;
 import org.jboss.logging.Logger;
 import org.springframework.stereotype.Service;
@@ -7,7 +8,6 @@ import br.com.acquirer.convert.EstablishmentConvertDTO;
 import br.com.acquirer.domain.model.Establishment;
 import br.com.acquirer.domain.repository.EstablishmentRepository;
 import br.com.acquirer.dto.EstablishmentDataTransferObject;
-import br.com.acquirer.service.exception.EstablishmentNotFoundException;
 
 @Service
 public class EstablishmentService {
@@ -35,9 +35,9 @@ public class EstablishmentService {
 
 
   public void checkEstablishmentExist(String merchantCode,
-      Optional<Establishment> establishmentOptional) throws EstablishmentNotFoundException {
+      Optional<Establishment> establishmentOptional) {
     if (!establishmentOptional.isPresent()) {
-      throw new EstablishmentNotFoundException(
+      throw new InvalidParameterException(
           "MerchantCode informed [ " + merchantCode + " ] not found!");
     }
   }
