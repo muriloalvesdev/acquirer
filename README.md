@@ -1,4 +1,4 @@
-### Este projeto está hospedado na Heroku, caso queira consumir as APIs, a URL base é [ https://module-acquirer.herokuapp.com/api/acquirer/ ]
+### Este projeto está hospedado no Heroku, caso queira consumir as APIs, a URL base é [ https://module-acquirer.herokuapp.com ]
 
 ## Utilizei o Swagger para gerar a documentação das APIs deste projeto.
 
