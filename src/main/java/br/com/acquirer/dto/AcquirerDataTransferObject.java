@@ -1,4 +1,4 @@
-package br.com.acquirer.resources;
+package br.com.acquirer.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

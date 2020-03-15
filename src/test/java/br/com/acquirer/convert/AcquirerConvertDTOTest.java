@@ -9,7 +9,7 @@ import org.springframework.test.context.ActiveProfiles;
 import br.com.acquirer.convert.AcquirerConvertDTO;
 import br.com.acquirer.domain.model.Acquirer;
 import br.com.acquirer.domain.utils.AcquirerName;
-import br.com.acquirer.resources.AcquirerDataTransferObject;
+import br.com.acquirer.dto.AcquirerDataTransferObject;
 import br.com.acquirer.service.exception.AcquirerNameNotFoundException;
 
 @SpringBootTest

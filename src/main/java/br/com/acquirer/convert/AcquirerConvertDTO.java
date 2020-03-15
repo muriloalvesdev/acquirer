@@ -4,7 +4,7 @@ import org.jboss.logging.Logger;
 
 import br.com.acquirer.domain.model.Acquirer;
 import br.com.acquirer.domain.utils.AcquirerName;
-import br.com.acquirer.resources.AcquirerDataTransferObject;
+import br.com.acquirer.dto.AcquirerDataTransferObject;
 
 public final class AcquirerConvertDTO {
 
