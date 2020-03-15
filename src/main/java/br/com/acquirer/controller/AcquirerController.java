@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import br.com.acquirer.resources.AcquirerDataTransferObject;
+import br.com.acquirer.dto.AcquirerDataTransferObject;
 import br.com.acquirer.service.acquirer.AcquirerService;
 
 @RestController
@@ -18,7 +18,7 @@ public class AcquirerController {
 
   @GetMapping("find/{cnpj}")
   public ResponseEntity<AcquirerDataTransferObject> findByCnpj(
-      @PathVariable(value = "cnpj") String cnpj) {
+      @PathVariable(value = "cnpj", required = true) String cnpj) {
     return ResponseEntity.ok(acquirerService.findByCnpj(cnpj));
   }
 
