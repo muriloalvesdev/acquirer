@@ -23,8 +23,4 @@ public class AcquirerController {
     return ResponseEntity.ok(acquirerService.findByCnpj(cnpj));
   }
 
-  @GetMapping("/")
-  public ResponseEntity<String> ok() {
-    return ResponseEntity.ok("OK");
-  }
 }
