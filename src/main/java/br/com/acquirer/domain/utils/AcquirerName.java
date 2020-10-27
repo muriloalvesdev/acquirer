@@ -20,6 +20,6 @@ public enum AcquirerName {
     return Arrays.asList(AcquirerName.values()).stream()
         .filter(acquirer -> acquirer.getAcquirerName().equals(acquirerName.toUpperCase()))
         .findFirst().orElseThrow(() -> new InvalidParameterException(
-            "Acquirer informed [ " + acquirerName + " ]" + "not found!"));
+            "Acquirer informed [ " + acquirerName + " ] " + "not found!"));
   }
 }

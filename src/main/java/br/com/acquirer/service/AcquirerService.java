@@ -1,4 +1,4 @@
-package br.com.acquirer.service.acquirer;
+package br.com.acquirer.service;
 
 import br.com.acquirer.dto.AcquirerDataTransferObject;
 import br.com.acquirer.resources.RequestResource;

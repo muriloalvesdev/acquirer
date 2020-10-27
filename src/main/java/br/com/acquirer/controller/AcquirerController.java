@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import br.com.acquirer.dto.AcquirerDataTransferObject;
-import br.com.acquirer.service.acquirer.AcquirerService;
+import br.com.acquirer.service.AcquirerService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 

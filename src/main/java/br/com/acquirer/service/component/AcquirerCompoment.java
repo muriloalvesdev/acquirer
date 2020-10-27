@@ -1,4 +1,4 @@
-package br.com.acquirer.service.acquirer.component;
+package br.com.acquirer.service.component;
 
 import java.util.Arrays;
 

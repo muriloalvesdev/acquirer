@@ -1,4 +1,4 @@
-package br.com.acquirer.service.acquirer.impl;
+package br.com.acquirer.service.impl;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -15,8 +15,8 @@ import br.com.acquirer.dto.AcquirerDataTransferObject;
 import br.com.acquirer.exception.AcquirerNotFoundException;
 import br.com.acquirer.resources.RequestResource;
 import br.com.acquirer.resources.http.request.TransactionRequest;
-import br.com.acquirer.service.acquirer.AcquirerService;
-import br.com.acquirer.service.acquirer.component.AcquirerCompoment;
+import br.com.acquirer.service.AcquirerService;
+import br.com.acquirer.service.component.AcquirerCompoment;
 
 @Service
 public class AcquirerServiceImpl implements AcquirerService {
@@ -34,7 +34,7 @@ public class AcquirerServiceImpl implements AcquirerService {
   @Value("${uri.transaction}")
   private String uriTransaction;
 
-  public AcquirerServiceImpl(AcquirerRepository acquirerRepository,
+  AcquirerServiceImpl(AcquirerRepository acquirerRepository,
       EstablishmentRepository establishmentRepository, AcquirerCompoment component,
       RestTemplate restTemplate) {
     this.acquirerRepository = acquirerRepository;
