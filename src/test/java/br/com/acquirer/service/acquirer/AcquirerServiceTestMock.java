@@ -12,16 +12,15 @@ import br.com.acquirer.resources.RequestResource;
 @ActiveProfiles("test")
 public class AcquirerServiceTestMock {
 
-    @Test
-    public void shouldTestRequestToModules() {
+  @Test
+  public void shouldTestRequestToModules() {
 
-        RequestResource request = mock(
-                RequestResource.class);
-        AcquirerService service = mock(AcquirerService.class);
+    RequestResource request = mock(RequestResource.class);
+    AcquirerService service = mock(AcquirerService.class);
 
-        BDDMockito.doNothing().when(service).createSale(request);
-        service.createSale(request);
-        BDDMockito.verify(service).createSale(request);
-    }
+    BDDMockito.doNothing().when(service).createSale(request);
+    service.createSale(request);
+    BDDMockito.verify(service).createSale(request);
+  }
 
 }

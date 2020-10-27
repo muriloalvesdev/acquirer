@@ -2,15 +2,14 @@ package br.com.acquirer.domain.utils;
 
 import java.security.InvalidParameterException;
 import java.util.Arrays;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum AcquirerName {
   CIELO("CIELO"), REDE("REDE");
 
   private String acquirerName;
-
-  private AcquirerName(String acquirerName) {
-    this.acquirerName = acquirerName;
-  }
 
   private String getAcquirerName() {
     return acquirerName;

@@ -10,31 +10,29 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
 import br.com.acquirer.resources.RequestResource;
+import br.com.acquirer.service.acquirer.component.AcquirerCompoment;
 
 @SpringBootTest
 @ActiveProfiles("test")
 public class AcquirerCompomentMockTest {
 
-    @Mock
-    private ResponseEntity<Object> responseEntity;
+  @Mock
+  private ResponseEntity<Object> responseEntity;
 
-    @Test
-    public void shouldSendRequestMock() {
-        RestTemplate restTemplate = mock(RestTemplate.class);
-        RequestResource request = mock(
-                RequestResource.class);
-        String uri = "uri_for_simulation";
+  @Test
+  public void shouldSendRequestMock() {
+    RestTemplate restTemplate = mock(RestTemplate.class);
+    RequestResource request = mock(RequestResource.class);
+    String uri = "uri_for_simulation";
 
-        AcquirerCompoment acquirerCompoment = mock(AcquirerCompoment.class);
+    AcquirerCompoment acquirerCompoment = mock(AcquirerCompoment.class);
 
-        BDDMockito.given(
-                acquirerCompoment.sendRequest(restTemplate, request, uri))
-                .willReturn(responseEntity);
+    BDDMockito.given(acquirerCompoment.sendRequest(restTemplate, request, uri))
+        .willReturn(responseEntity);
 
-        acquirerCompoment.sendRequest(restTemplate, request, uri);
+    acquirerCompoment.sendRequest(restTemplate, request, uri);
 
-        BDDMockito.verify(acquirerCompoment).sendRequest(restTemplate, request,
-                uri);
-    }
+    BDDMockito.verify(acquirerCompoment).sendRequest(restTemplate, request, uri);
+  }
 
 }

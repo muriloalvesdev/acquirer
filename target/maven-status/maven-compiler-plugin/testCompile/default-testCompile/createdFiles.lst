@@ -1,6 +1,0 @@
-br/com/acquirer/AcquirerApplicationTests.class
-br/com/acquirer/convert/EstablishmentConvertDTOTest.class
-br/com/acquirer/domain/utils/AcquirerNameTest.class
-br/com/acquirer/service/acquirer/AcquirerCompomentMockTest.class
-br/com/acquirer/service/acquirer/AcquirerServiceTestMock.class
-br/com/acquirer/convert/AcquirerConvertDTOTest.class

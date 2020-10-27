@@ -11,42 +11,39 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import br.com.acquirer.domain.model.RequestExceptionError;
+import br.com.acquirer.domain.model.ApiException;
 
 @ControllerAdvice
 public class HandlerException extends ResponseEntityExceptionHandler {
 
+  private static final HttpStatus BAD_REQUEST = HttpStatus.BAD_REQUEST;
+  private static final String INVALID_FIELDS = "Invalid field(s)";
+  private static final HttpStatus NOT_FOUND = HttpStatus.NOT_FOUND;
+
   @ExceptionHandler(InvalidParameterException.class)
-  public @ResponseBody ResponseEntity<RequestExceptionError> handleInvalidParameterException(
+  public @ResponseBody ResponseEntity<ApiException> handleInvalidParameterException(
       InvalidParameterException ex) {
-
-    RequestExceptionError exceptionError =
-        new RequestExceptionError(ex.getMessage(), HttpStatus.NOT_FOUND.value());
-
-    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exceptionError);
+    return ResponseEntity.status(NOT_FOUND)
+        .body(createResponseException(ex.getMessage(), NOT_FOUND));
   }
 
   @ExceptionHandler(ResponseStatusException.class)
-  public @ResponseBody ResponseEntity<RequestExceptionError> handleResponseStatusException(
+  public @ResponseBody ResponseEntity<ApiException> handleResponseStatusException(
       ResponseStatusException ex) {
-    RequestExceptionError exceptionError =
-        new RequestExceptionError(ex.getMessage(), ex.getStatus().value());
-    return ResponseEntity.status(ex.getStatus()).body(exceptionError);
+    return ResponseEntity.status(ex.getStatus())
+        .body(createResponseException(ex.getMessage(), ex.getStatus()));
   }
 
   @Override
   protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
       HttpHeaders headers, HttpStatus status, WebRequest request) {
-
-    String defaultMessage = "Invalid field(s)";
-
-    RequestExceptionError error =
-        new RequestExceptionError(defaultMessage, HttpStatus.BAD_REQUEST.value());
-
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    return ResponseEntity.status(BAD_REQUEST)
+        .body(createResponseException(INVALID_FIELDS, BAD_REQUEST));
   }
 
-
+  private ApiException createResponseException(String message, HttpStatus status) {
+    return new ApiException(message, status.value());
+  }
 }
 
 

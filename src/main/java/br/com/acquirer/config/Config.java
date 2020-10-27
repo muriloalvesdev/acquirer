@@ -1,6 +1,5 @@
 package br.com.acquirer.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
@@ -9,16 +8,15 @@ import br.com.acquirer.domain.model.Establishment;
 import br.com.acquirer.domain.repository.AcquirerRepository;
 import br.com.acquirer.domain.repository.EstablishmentRepository;
 import br.com.acquirer.domain.utils.AcquirerName;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 @Configuration
 public class Config {
 
-  @Autowired
   private AcquirerRepository acquirerRepository;
-
-  @Autowired
   private EstablishmentRepository establishmentRepository;
-
+  
   @Bean
   public RestTemplate restTemplate() {
     return new RestTemplate();
@@ -26,26 +24,29 @@ public class Config {
 
   @Bean
   public void persistAcquirers() {
-    if (!acquirerRepository.findByAcquirerName(AcquirerName.CIELO).isPresent()
-        && !acquirerRepository.findByAcquirerName(AcquirerName.REDE).isPresent()) {
-      acquirerRepository.saveAndFlush(new Acquirer(AcquirerName.CIELO, "01027058000191"));
-      acquirerRepository.saveAndFlush(new Acquirer(AcquirerName.REDE, " 01425787000104"));
+    if (!this.acquirerRepository.findByAcquirerName(AcquirerName.CIELO).isPresent()
+        && !this.acquirerRepository.findByAcquirerName(AcquirerName.REDE).isPresent()) {
+      this.acquirerRepository.saveAndFlush(
+          Acquirer.newBuilder().acquirerName(AcquirerName.CIELO).cnpj("01027058000191").build());
+      this.acquirerRepository.saveAndFlush(
+          Acquirer.newBuilder().acquirerName(AcquirerName.REDE).cnpj("01425787000104").build());
     }
   }
 
   @Bean
   public void persistEstablishment() {
-    if (!establishmentRepository.findByMerchantCode(Long.parseLong("12345678")).isPresent()
-        && !establishmentRepository.findByMerchantCode(Long.parseLong("12345679")).isPresent()) {
-      establishmentRepository.saveAndFlush(
-          new Establishment("Panificadora do Murilo Alves", Long.parseLong("12345678"),
-              acquirerRepository.findByAcquirerName(AcquirerName.CIELO).get(),
-              Double.parseDouble("0.01")));
+    if (!this.establishmentRepository.findByMerchantCode(Long.parseLong("12345678")).isPresent()
+        && !this.establishmentRepository.findByMerchantCode(Long.parseLong("12345679"))
+            .isPresent()) {
+      this.establishmentRepository.saveAndFlush(Establishment.newBuilder()
+          .name("Panificadora do Murilo Alves").merchantCode(Long.parseLong("12345678"))
+          .acquirer(this.acquirerRepository.findByAcquirerName(AcquirerName.CIELO).get())
+          .MDR(Double.parseDouble("0.01")).build());
 
-      establishmentRepository
-          .saveAndFlush(new Establishment("Açougue do Murilo Alves", Long.parseLong("12345679"),
-              acquirerRepository.findByAcquirerName(AcquirerName.REDE).get(),
-              Double.parseDouble("0.01")));
+      this.establishmentRepository.saveAndFlush(Establishment.newBuilder()
+          .name("Açougue do Murilo Alves").merchantCode(Long.parseLong("12345679"))
+          .acquirer(this.acquirerRepository.findByAcquirerName(AcquirerName.REDE).get())
+          .MDR(Double.parseDouble("0.01")).build());
     }
   }
 

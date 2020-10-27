@@ -1,34 +1,16 @@
 package br.com.acquirer.resources;
 
+import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
+@Data
 public class BankResource {
-
   @JsonProperty("amount_sale")
+  @NotNull
   private String amountSale;
 
   @JsonProperty("card")
+  @NotNull
   private CardsDataTransferObject card;
-
-  public String getAmountSale() {
-    return amountSale;
-  }
-
-  public void setAmountSale(String amountSale) {
-    this.amountSale = amountSale;
-  }
-
-  public CardsDataTransferObject getCard() {
-    return card;
-  }
-
-  public void setCard(CardsDataTransferObject card) {
-    this.card = card;
-  }
-
-  @Override
-  public String toString() {
-    return "BankResource [amountSale=" + amountSale + ", card=" + card + "]";
-  }
-
 }

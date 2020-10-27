@@ -2,9 +2,10 @@ package br.com.acquirer.resources;
 
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
+@Data
 public class RequestResource {
-
   @JsonProperty("holder")
   @NotNull(message = "holder is required")
   private HolderResource holder;
@@ -36,77 +37,4 @@ public class RequestResource {
   @JsonProperty("payment_date")
   @NotNull(message = "payment_date is required")
   private String paymentDate;
-
-  public HolderResource getHolder() {
-    return holder;
-  }
-
-  public String getCountInstallments() {
-    return countInstallments;
-  }
-
-  public void setCountInstallments(String countInstallments) {
-    this.countInstallments = countInstallments;
-  }
-
-  public String getTypeTransaction() {
-    return typeTransaction;
-  }
-
-  public void setTypeTransaction(String typeTransaction) {
-    this.typeTransaction = typeTransaction;
-  }
-
-  public void setHolder(HolderResource holder) {
-    this.holder = holder;
-  }
-
-  public String getMerchantCode() {
-    return merchantCode;
-  }
-
-  public void setMerchantCode(String merchantCode) {
-    this.merchantCode = merchantCode;
-  }
-
-  public InfoTransactionResource getTransaction() {
-    return transaction;
-  }
-
-  public void setTransaction(InfoTransactionResource transaction) {
-    this.transaction = transaction;
-  }
-
-  public String getMaskedCreditCardNumber() {
-    return maskedCreditCardNumber;
-  }
-
-  public void setMaskedCreditCardNumber(String maskedCreditCardNumber) {
-    this.maskedCreditCardNumber = maskedCreditCardNumber;
-  }
-
-  public String getCapturedAt() {
-    return capturedAt;
-  }
-
-  public void setCapturedAt(String capturedAt) {
-    this.capturedAt = capturedAt;
-  }
-
-  public String getPaymentDate() {
-    return paymentDate;
-  }
-
-  public void setPaymentDate(String paymentDate) {
-    this.paymentDate = paymentDate;
-  }
-
-  @Override
-  public String toString() {
-    return "RequestResource [holder=" + holder + ", merchantCode=" + merchantCode + ", transaction="
-        + transaction + ", typeTransaction=" + typeTransaction + ", countInstallments="
-        + countInstallments + ", maskedCreditCardNumber=" + maskedCreditCardNumber + ", capturedAt="
-        + capturedAt + ", paymentDate=" + paymentDate + "]";
-  }
-
 }

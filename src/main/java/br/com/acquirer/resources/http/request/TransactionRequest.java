@@ -2,7 +2,11 @@ package br.com.acquirer.resources.http.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import br.com.acquirer.resources.SummarySaleResource;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
+@Data
+@AllArgsConstructor
 public class TransactionRequest {
 
   @JsonProperty("merchant_code")
@@ -28,28 +32,5 @@ public class TransactionRequest {
 
   @JsonProperty("holder_name")
   private String holder;
-
-  public TransactionRequest(String merchantCode, String typeTransaction, String countInstallments,
-      String maskedCreditCardNumber, String capturedAt, String paymentDate,
-      SummarySaleResource summarySale, String holder) {
-    this.merchantCode = merchantCode;
-    this.typeTransaction = typeTransaction;
-    this.countInstallments = countInstallments;
-    this.maskedCreditCardNumber = maskedCreditCardNumber;
-    this.capturedAt = capturedAt;
-    this.paymentDate = paymentDate;
-    this.summarySale = summarySale;
-    this.holder = holder;
-  }
-
-
-
-  @Override
-  public String toString() {
-    return "TransactionRequest [merchantCode=" + merchantCode + ", typeTransaction="
-        + typeTransaction + ", countInstallments=" + countInstallments + ", maskedCreditCardNumber="
-        + maskedCreditCardNumber + ", capturedAt=" + capturedAt + ", paymentDate=" + paymentDate
-        + ", summarySale=" + summarySale + "]";
-  }
 
 }
