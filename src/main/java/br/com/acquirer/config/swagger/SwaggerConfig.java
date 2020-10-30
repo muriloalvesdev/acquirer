@@ -1,5 +1,6 @@
 package br.com.acquirer.config.swagger;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import com.google.common.base.Predicate;
@@ -8,6 +9,7 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -15,20 +17,45 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
+
+  @Value("${developer.name}")
+  private String name;
+
+  @Value("${developer.linkedin}")
+  private String linkedin;
+
+  @Value("${developer.email}")
+  private String email;
+
+  @Value("${title.swagger}")
+  private String title;
+
+  @Value("${description.swagger}")
+  private String description;
+
+  @Value("${license.swagger}")
+  private String license;
+
+  @Value("${license.url.swagger}")
+  private String licenseUrl;
+
+  @Value("${version.software}")
+  private String version;
+
+
   @Bean
   public Docket api() {
     return new Docket(DocumentationType.SWAGGER_2).select().apis(apis()).paths(PathSelectors.any())
-        .build().apiInfo(metaData());
+        .build().apiInfo(apiInfo());
   }
 
   private Predicate<RequestHandler> apis() {
-    return RequestHandlerSelectors.basePackage("br.com.acquirer");
+    return RequestHandlerSelectors.basePackage("br.com.schedule");
   }
 
-  private ApiInfo metaData() {
-    return new ApiInfoBuilder().title("Project Spring Boot - Module Acquirer").description(
-        "Module responsible for receiving a summary of a credit card transaction and sending the summary so that the holder module can continue with the operational flow. This acquirer module must simulate an acquirer in a card transaction")
-        .version("1.0.0").license("Apache License Version 2.0")
-        .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"").build();
+  private ApiInfo apiInfo() {
+    return new ApiInfoBuilder().contact(new Contact(name, linkedin, email)).description(description)
+        .license(license).licenseUrl(licenseUrl).version(version).title(title).build();
   }
+
 }
