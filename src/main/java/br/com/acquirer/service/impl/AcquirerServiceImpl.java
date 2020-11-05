@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 import br.com.acquirer.convert.AcquirerConvertDTO;
-import br.com.acquirer.convert.CreateTransactionRequest;
+import br.com.acquirer.convert.TransactionsUtil;
 import br.com.acquirer.domain.model.Acquirer;
 import br.com.acquirer.domain.repository.AcquirerRepository;
 import br.com.acquirer.domain.repository.EstablishmentRepository;
@@ -50,7 +50,7 @@ public class AcquirerServiceImpl implements AcquirerService {
   }
 
   @Override
-  public AcquirerDataTransferObject findByCnpj(String cnpj) {
+  public AcquirerDataTransferObject find(String cnpj) {
     return this.acquirerRepository.findByCnpj(cnpj).map(AcquirerConvertDTO::convert)
         .orElseThrow(() -> new AcquirerNotFoundException("cnpj", cnpj));
   }
@@ -58,7 +58,7 @@ public class AcquirerServiceImpl implements AcquirerService {
   @Override
   public void createSale(RequestResource request) {
     TransactionRequest transactionRequest =
-        CreateTransactionRequest.createTransactionRequest(request.getTransaction(), request);
+        TransactionsUtil.createTransactionRequest(request.getTransaction(), request);
     this.establishmentRepository.findByMerchantCode(Long.parseLong(request.getMerchantCode()))
         .ifPresent(establishment -> {
           ResponseEntity<Object> responseEntity = sendRequestToHolder(request);

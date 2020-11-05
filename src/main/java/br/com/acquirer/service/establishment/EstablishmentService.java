@@ -11,7 +11,7 @@ public class EstablishmentService {
 
   private EstablishmentRepository establishmentRepository;
 
-  public EstablishmentService(EstablishmentRepository establishmentRepository) {
+  EstablishmentService(EstablishmentRepository establishmentRepository) {
     this.establishmentRepository = establishmentRepository;
   }
   public EstablishmentDataTransferObject findByMerchantCode(String merchantCode) {

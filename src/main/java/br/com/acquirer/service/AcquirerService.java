@@ -8,5 +8,5 @@ public interface AcquirerService {
 
   void createSale(RequestResource request);
 
-  AcquirerDataTransferObject findByCnpj(String cnpj);
+  AcquirerDataTransferObject find(String cnpj);
 }

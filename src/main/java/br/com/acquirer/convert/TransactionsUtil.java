@@ -5,7 +5,7 @@ import br.com.acquirer.resources.RequestResource;
 import br.com.acquirer.resources.SummarySaleResource;
 import br.com.acquirer.resources.http.request.TransactionRequest;
 
-public final class CreateTransactionRequest {
+public final class TransactionsUtil {
 
   public static final TransactionRequest createTransactionRequest(
       InfoTransactionResource transactionResource, RequestResource request) {

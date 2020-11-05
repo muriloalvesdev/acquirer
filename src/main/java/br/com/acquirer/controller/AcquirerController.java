@@ -20,7 +20,7 @@ public class AcquirerController {
   @GetMapping("find/{cnpj}")
   public ResponseEntity<AcquirerDataTransferObject> findByCnpj(
       @PathVariable(value = "cnpj", required = true) String cnpj) {
-    return ResponseEntity.ok(acquirerService.findByCnpj(cnpj));
+    return ResponseEntity.ok(acquirerService.find(cnpj));
   }
 
 }
