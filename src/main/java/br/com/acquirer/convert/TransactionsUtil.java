@@ -4,7 +4,10 @@ import br.com.acquirer.resources.InfoTransactionResource;
 import br.com.acquirer.resources.RequestResource;
 import br.com.acquirer.resources.SummarySaleResource;
 import br.com.acquirer.resources.http.request.TransactionRequest;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class TransactionsUtil {
 
   public static final TransactionRequest createTransactionRequest(

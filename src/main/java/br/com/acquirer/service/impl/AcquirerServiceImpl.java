@@ -19,7 +19,7 @@ import br.com.acquirer.service.AcquirerService;
 import br.com.acquirer.service.component.AcquirerCompoment;
 
 @Service
-public class AcquirerServiceImpl implements AcquirerService {
+public class AcquirerServiceImpl implements AcquirerService<AcquirerDataTransferObject, RequestResource> {
 
   private static final String REQUEST_HOLDER_FAILED = "Request to module Holder failed!";
 

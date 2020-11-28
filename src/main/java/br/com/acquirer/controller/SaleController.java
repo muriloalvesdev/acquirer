@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import br.com.acquirer.dto.AcquirerDataTransferObject;
 import br.com.acquirer.resources.RequestResource;
 import br.com.acquirer.service.AcquirerService;
 import lombok.AccessLevel;
@@ -16,11 +17,11 @@ import lombok.AllArgsConstructor;
 @RequestMapping("api/sale")
 public class SaleController {
 
-  private AcquirerService acquirerService;
+  private AcquirerService<AcquirerDataTransferObject, RequestResource> acquirerService;
 
   @PostMapping("create")
   public ResponseEntity<Void> requestHolder(@Validated @RequestBody RequestResource request) {
-    acquirerService.createSale(request);
+    this.acquirerService.createSale(request);
     return ResponseEntity.ok().build();
   }
 

@@ -20,7 +20,7 @@ public class EstablishmentController {
   @GetMapping("find/{merchantcode}")
   public ResponseEntity<EstablishmentDataTransferObject> findByMerchantCode(
       @PathVariable(name = "merchantcode", required = true) String merchantCode) {
-    return ResponseEntity.ok(service.findByMerchantCode(merchantCode));
+    return ResponseEntity.ok(this.service.findByMerchantCode(merchantCode));
   }
 
 }

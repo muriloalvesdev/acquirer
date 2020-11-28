@@ -8,9 +8,10 @@ import br.com.acquirer.domain.model.Establishment;
 import br.com.acquirer.domain.repository.AcquirerRepository;
 import br.com.acquirer.domain.repository.EstablishmentRepository;
 import br.com.acquirer.domain.utils.AcquirerName;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 @Configuration
 public class Config {
 

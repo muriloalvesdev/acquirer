@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import br.com.acquirer.domain.utils.AcquirerName;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,8 +24,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder(builderMethodName = "newBuilder")
-@AllArgsConstructor
-@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "acquirer", uniqueConstraints = {@UniqueConstraint(columnNames = {"cnpj"})})
 public class Acquirer extends BaseEntity {
